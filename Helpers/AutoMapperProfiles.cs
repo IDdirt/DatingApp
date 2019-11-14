@@ -1,9 +1,9 @@
 ﻿using System;
 namespace DatingAppMvc.Helpers
 {
-    public class Extensions
+    public class AutoMapperProfiles
     {
-        public Extensions()
+        public AutoMapperProfiles()
         {
         }
     }
