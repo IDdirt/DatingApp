@@ -3,8 +3,11 @@ namespace DatingAppMvc.Dtos
 {
     public class PhotosForDetailedDto
     {
-        public PhotosForDetailedDto()
-        {
-        }
+        public int Id { get; set; }
+        public string Url { get; set; }
+        public string Description { get; set; }
+        public DateTime DateAdded { get; set; }
+        public bool IsMain { get; set; }
+        // Adding these properties will allow the database to have casdading delete by convention
     }
 }
