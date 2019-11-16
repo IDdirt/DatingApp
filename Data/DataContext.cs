@@ -1,5 +1,4 @@
-﻿using System;
-using DatingAppMvc.Models;
+﻿using DatingAppMvc.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DatingAppMvc.Data
