@@ -12,7 +12,7 @@ namespace DatingAppMvc.Helpers
         {
             //convention, if the names are the same between the Dto and
             //the database then you dont need to map
-            //for example Username and Id
+            //for example the Username and Id fields
             CreateMap<User, UserForListDto>()
                 .ForMember(
                     dest => dest.PhotoUrl,
@@ -37,6 +37,7 @@ namespace DatingAppMvc.Helpers
                     src => src.DateOfBirth.CalculateAge())
               );
             CreateMap<Photo, PhotosForDetailedDto>();
+            CreateMap<UserForUpdateDto, User>();
         }
     }
 }
