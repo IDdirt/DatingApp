@@ -40,6 +40,8 @@ namespace DatingAppMvc
                 opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
             services.AddCors();
+            // this take the settings in the appsettings.json and makes them strongly typed in configurations
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddAutoMapper(typeof(DatingRepository).Assembly);
             //services.AddSingleton This adds one instnce of the function for all of the code
             //services.AddTransient Adds and instance everytime one is requested. Good for light weight stateless services

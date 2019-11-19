@@ -9,6 +9,8 @@ namespace DatingAppMvc.Models
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public bool IsMain { get; set; }
+        public string PublicID { get; set; }
+        
         // Adding these properties will allow the database to have casdading delete by convention
         public User User { get; set; }
         public int UserId { get; set; }
