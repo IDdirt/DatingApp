@@ -5,12 +5,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using DatingAppMvc.Data;
 using DatingAppMvc.Dtos;
+using DatingAppMvc.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DatingAppMvc.Controllers
 {
 
+    // This logs the user clicking on anything belop to update "last active"
+    [ServiceFilter(typeof(LogUserActivity))]
     [Authorize]
     [Route("[controller]")]
     [ApiController]
