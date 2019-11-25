@@ -40,6 +40,7 @@ namespace DatingAppMvc.Helpers
             CreateMap<UserForUpdateDto, User>();
             CreateMap<Photo, PhotoForRetrunDto>();
             CreateMap<PhotoForCreationDto, Photo>();
+            CreateMap<UserForRegisterDto, User>();
         }
     }
 }
