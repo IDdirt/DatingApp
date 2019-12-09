@@ -12,7 +12,7 @@ namespace DatingAppMvc.Models
         public string PublicID { get; set; }
         
         // Adding these properties will allow the database to have casdading delete by convention
-        public User User { get; set; }
+        public virtual User User { get; set; }
         public int UserId { get; set; }
     }
 }

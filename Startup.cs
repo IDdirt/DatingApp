@@ -30,10 +30,31 @@ namespace DatingAppMvc
 
         public IConfiguration Configuration { get; }
 
+
+        // This is for development mode to access Sqlite
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            services.AddDbContext<DataContext>(x => {
+                    x.UseLazyLoadingProxies();
+                    x.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
+                });
+            ConfigureServices(services);
+        }
+        
+        // This is for production mode to access MySql
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            services.AddDbContext<DataContext>(x => {
+                    x.UseLazyLoadingProxies();
+                    x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+                });
+            ConfigureServices(services);
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(opt =>
             {
@@ -87,6 +108,9 @@ namespace DatingAppMvc
                 //app.UseHsts();
             }
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
+            app.UseDefaultFiles();
+
             app.UseAuthentication();
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -100,6 +124,7 @@ namespace DatingAppMvc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
