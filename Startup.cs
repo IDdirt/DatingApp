@@ -41,12 +41,15 @@ namespace DatingAppMvc
             ConfigureServices(services);
         }
         
-        // This is for production mode to access MySql
+        // This is for production mode to access MySql (SqlServer on Azure.  Note the DefaultConnection matches that on Azure)
         public void ConfigureProductionServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => {
                     x.UseLazyLoadingProxies();
+                    // localhost mode
                     x.UseMySql(Configuration.GetConnectionString("DefaultConnection"));
+                    // Azure mode
+                    // x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
                 });
             ConfigureServices(services);
         }
@@ -92,27 +95,31 @@ namespace DatingAppMvc
             }
             else
             {
-                app.UseExceptionHandler(builder => {
-                    builder.Run(async context => {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                // In Azure commented out this custom error handler to use the UseDeveloperExceptionPage() below.
 
-                        var error = context.Features.Get<IExceptionHandlerFeature>();
-                        if (error != null)
-                        {
-                            context.Response.AddApplicationError(error.Error.Message);
-                            await context.Response.WriteAsync(error.Error.Message);
-                        }
-                    });
-                });
+                // app.UseExceptionHandler(builder => {
+                //     builder.Run(async context => {
+                //         context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                //         var error = context.Features.Get<IExceptionHandlerFeature>();
+                //         if (error != null)
+                //         {
+                //             context.Response.AddApplicationError(error.Error.Message);
+                //             await context.Response.WriteAsync(error.Error.Message);
+                //         }
+                //     });
+                // });
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                //app.UseHsts();
+
+                app.UseHsts();
             }
+            app.UseDeveloperExceptionPage();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             
             app.UseDefaultFiles();
 
             app.UseAuthentication();
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();

@@ -10,12 +10,15 @@ namespace DatingAppMvc.Data
     {
         public static void SeedUsers(DataContext context)
         {
+            Console.WriteLine("Determining if I need to seed the database");
             if (!context.Users.Any())
-            {
+            {   
+                
                 var userData = System.IO.File.ReadAllText("Data/UserSeedData.json");
                 var users = JsonConvert.DeserializeObject<List<User>>(userData);
                 foreach (var user in users)
                 {
+                    Console.WriteLine("Loading new seed database");
                     byte[] passwordHash, passwordSalt;
                     CreatePasswordHash("password", out passwordHash, out passwordSalt);
 
