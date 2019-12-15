@@ -3,72 +3,20 @@ using System;
 using DatingAppMvc.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatingAppMvc.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20191113213252_completeKeys")]
+    partial class completeKeys
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0");
-
-            modelBuilder.Entity("DatingAppMvc.Models.Like", b =>
-                {
-                    b.Property<int>("LikerId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("LikeeId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("LikerId", "LikeeId");
-
-                    b.HasIndex("LikeeId");
-
-                    b.ToTable("Likes");
-                });
-
-            modelBuilder.Entity("DatingAppMvc.Models.Message", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<string>("Content")
-                        .HasColumnType("TEXT");
-
-                    b.Property<DateTime?>("DateRead")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("IsRead")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("MessageSent")
-                        .HasColumnType("TEXT");
-
-                    b.Property<bool>("RecipientDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("RecipientId")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("SenderDeleted")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("SenderId")
-                        .HasColumnType("INTEGER");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RecipientId");
-
-                    b.HasIndex("SenderId");
-
-                    b.ToTable("Messages");
-                });
 
             modelBuilder.Entity("DatingAppMvc.Models.Photo", b =>
                 {
@@ -84,9 +32,6 @@ namespace DatingAppMvc.Migrations
 
                     b.Property<bool>("IsMain")
                         .HasColumnType("INTEGER");
-
-                    b.Property<string>("PublicID")
-                        .HasColumnType("TEXT");
 
                     b.Property<string>("Url")
                         .HasColumnType("TEXT");
@@ -163,36 +108,6 @@ namespace DatingAppMvc.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Values");
-                });
-
-            modelBuilder.Entity("DatingAppMvc.Models.Like", b =>
-                {
-                    b.HasOne("DatingAppMvc.Models.User", "Likee")
-                        .WithMany("Likers")
-                        .HasForeignKey("LikeeId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DatingAppMvc.Models.User", "Liker")
-                        .WithMany("Likees")
-                        .HasForeignKey("LikerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("DatingAppMvc.Models.Message", b =>
-                {
-                    b.HasOne("DatingAppMvc.Models.User", "Recipient")
-                        .WithMany("MessagesReceived")
-                        .HasForeignKey("RecipientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("DatingAppMvc.Models.User", "Sender")
-                        .WithMany("MessagesSent")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("DatingAppMvc.Models.Photo", b =>

@@ -111,16 +111,16 @@ namespace DatingAppMvc
                 // });
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
 
-                app.UseHsts();
+                //app.UseHsts();
             }
             app.UseDeveloperExceptionPage();
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             
-            app.UseDefaultFiles();
+            // app.UseDefaultFiles();
 
             app.UseAuthentication();
-            app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            // app.UseHttpsRedirection();
+            // app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -131,7 +131,7 @@ namespace DatingAppMvc
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapFallbackToController("Index", "Fallback");
+                // endpoints.MapFallbackToController("Index", "Fallback");
             });
         }
     }
